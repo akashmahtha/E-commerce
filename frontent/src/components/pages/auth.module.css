@@ -1,0 +1,35 @@
+.container{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#1f1f1f,#3b3b3b);
+}
+
+.box{
+    background:white;
+    padding:40px;
+    border-radius:10px;
+    text-align:center;
+    width:300px;
+}
+
+.buttons{
+    margin-top:20px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.buttons button{
+    padding:10px 20px;
+    border:none;
+    border-radius:5px;
+    background:orange;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.buttons button:hover{
+    background:darkorange;
+}
