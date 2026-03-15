@@ -3,33 +3,46 @@
     display:flex;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#1f1f1f,#3b3b3b);
+    /* background:linear-gradient(135deg,#1f1f1f,#3b3b3b,#555555); */
+    /* background: linear-gradient(135deg,#141e30,#243b55); */
+    background: linear-gradient(135deg,#141e30,#243b55);
 }
 
 .box{
     background:white;
     padding:40px;
-    border-radius:10px;
+    border-radius:12px;
     text-align:center;
-    width:300px;
+    width:320px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+.box h1{
+    margin-bottom:10px;
+}
+
+.box p{
+    color:#555;
 }
 
 .buttons{
-    margin-top:20px;
+    margin-top:25px;
     display:flex;
     justify-content:space-between;
 }
 
 .buttons button{
-    padding:10px 20px;
+    padding:10px 22px;
     border:none;
-    border-radius:5px;
-    background:orange;
+    border-radius:6px;
+    background:#ff9800;
     color:white;
     font-size:16px;
     cursor:pointer;
+    transition:0.3s;
 }
 
 .buttons button:hover{
-    background:darkorange;
+    background:#e68900;
+    transform:scale(1.05);
 }

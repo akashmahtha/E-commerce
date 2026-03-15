@@ -3,9 +3,10 @@
     display:flex;
     justify-content:center;
     align-items:center;
-    background-image:url("../../assets/login2.jpg");
-    background-size:cover;
+       background-image:url("../../assets/leaf.png");
+       background-size:cover;
     background-position:center;
+    position:relative;
 }
 
 .form{

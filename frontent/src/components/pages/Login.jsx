@@ -1,43 +1,73 @@
-import React from 'react'
-import { useState } from 'react'
-import styles from './login.module.css'
+import React, { useState } from "react";
+import styles from "./login.module.css";
+import leaf from "../../assets/leaf.png";
+
 function Login() {
-  const[loginData, setLoginData] = useState({
+
+  const [loginData, setLoginData] = useState({
     username: "",
     password: ""
-  })
+  });
 
-const handleOnchange = (e) => {
-  setLoginData((prev)=>{
-    return{
-      ...prev,username:e.target.value
-    }
-  })
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-  setLoginData((prev)=>{
-    return{
-      ...prev,password:e.target.value
-    }
-  })
-}
+    setLoginData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  console.log(loginData);
-}
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(loginData);
+  };
 
   return (
     <div className={styles.container}>
-      <form className={styles.form} action="" onSubmit={handleSubmit}>
-        <h1 className={styles.title}>Login</h1>
-        <label>Username</label>
-        <input type="text" name="username" id="" value={loginData.username} onChange={handleOnchange} />
-        <label>Password</label>
-        <input type="password" name="password" id="" value={loginData.password} onChange={handleOnchange} />
-        <button type='submit'>Login</button>
-      </form>
+      <div className={styles.card}>
+
+        {/* LEFT FORM */}
+        <form className={styles.form} onSubmit={handleSubmit}>
+
+          <h2 className={styles.title}>Get Started Now</h2>
+
+          <div className={styles.inputGroup}>
+            <label>Username</label>
+            <input
+              type="email"
+              name="username"
+              placeholder="Enter your email"
+              value={loginData.username}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              value={loginData.password}
+              onChange={handleChange}
+            />
+          </div>
+
+          <button type="submit" className={styles.button}>
+            Login
+          </button>
+
+        </form>
+
+        {/* RIGHT IMAGE */}
+        <div className={styles.imageSection}>
+          <img src={leaf} alt="leaf" />
+        </div>
+
+      </div>
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;
