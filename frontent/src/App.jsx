@@ -10,6 +10,7 @@ import Login from './components/pages/Login'
 import Signup from './components/pages/Signup'
 import Auth from './components/pages/Auth'
 import Navbar from './components/navbar/Navbar'
+import AddProduct from './components/pages/addproduct'
 import './App.css'
 function App() {
 
@@ -26,7 +27,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/auth" element={<Auth />} />
-
+          <Route path="/add-product" element={<AddProduct />} />
       </Routes>
       
     </>
