@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo2.png";
 
 function Navbar() {
   const [search, setSearch] = useState("");
@@ -16,6 +16,15 @@ function Navbar() {
       setSearch("");
     }
   };
+
+const handleLogout = () => {
+  localStorage.removeItem("user");
+  localStorage.removeItem("userId");   // ✅ important
+
+  console.log("After logout userId:", localStorage.getItem("userId")); // should be null
+
+  navigate("/auth");
+};
 
   return (
     <nav className={styles.navbar}>
@@ -40,9 +49,14 @@ function Navbar() {
       <div className={styles.links}>
         <Link className={styles.link} to="/">Dashboard</Link>
         <Link className={styles.link} to="/products">Products</Link>
-        <Link className={styles.link} to="/cart">Cart</Link>
+        <Link className={styles.link} to="/card">Cart</Link>
         <Link className={styles.link} to="/about">About</Link>
         <Link className={styles.link} to="/auth">Auth</Link>
+
+        <button className={styles.logout} onClick={handleLogout}>
+              Logout
+            </button>
+        
       </div>
 
     </nav>

@@ -1,40 +1,64 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "./addProduct.module.css";
 
 function AddProduct() {
-   const navigate = useNavigate();
-   const [productName, setProductName] = useState({
+  const navigate = useNavigate();
+
+  const [product, setProduct] = useState({
     productName: "",
     price: "",
     description: "",
-    category: ""
+    category: "",
+    image: null
   });
 
+  const [preview, setPreview] = useState(null);
+
   const handleChange = (e) => {
-    setProductName({
-      ...productName,
+    setProduct({
+      ...product,
       [e.target.name]: e.target.value
     });
   };
 
+  // 📸 Handle Image Upload
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    setProduct({
+      ...product,
+      image: file
+    });
+
+    // Preview
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+    }
+  };
+
+  // 🚀 Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      console.log(productName);
+      const formData = new FormData();
+      formData.append("productName", product.productName);
+      formData.append("price", product.price);
+      formData.append("description", product.description);
+      formData.append("category", product.category);
+      formData.append("image", product.image);
 
       const res = await fetch("http://localhost:5000/api/createProduct", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(productName)
+        body: formData
       });
 
       const data = await res.json();
       console.log(data);
+
+      alert("Product Added ✅");
       navigate("/products");
-      // alert("Product Added Successfully!"); 
 
     } catch (error) {
       console.log(error);
@@ -42,52 +66,54 @@ function AddProduct() {
   };
 
   return (
-    <div>
-      <h1>Add Product</h1>
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <h1>Add Product</h1>
 
-      <form onSubmit={handleSubmit}>
-        <label>Product Name:</label>
-        <input
-          type="text"
-          name="productName"
-          value={productName.productName}
-          onChange={handleChange}
-        />
+        <form onSubmit={handleSubmit} className={styles.form}>
+          
+          <input
+            type="text"
+            name="productName"
+            placeholder="Product Name"
+            value={product.productName}
+            onChange={handleChange}
+          />
 
-        <br /><br />
+          <input
+            type="number"
+            name="price"
+            placeholder="Price"
+            value={product.price}
+            onChange={handleChange}
+          />
 
-        <label>Price:</label>
-        <input
-          type="number"
-          name="price"
-          value={productName.price}
-          onChange={handleChange}
-        />
+          <input
+            type="text"
+            name="category"
+            placeholder="Category"
+            value={product.category}
+            onChange={handleChange}
+          />
 
-        <br /><br />
+          <textarea
+            name="description"
+            placeholder="Description"
+            value={product.description}
+            onChange={handleChange}
+          />
 
-        <label>Description:</label>
-        <input
-          type="text"
-          name="description"
-          value={productName.description}
-          onChange={handleChange}
-        />
+          {/* 📸 Image Upload */}
+          <input type="file" accept="image/*" onChange={handleImageChange} />
 
-        <br /><br />
+          {/* 🔍 Preview */}
+          {preview && (
+            <img src={preview} alt="preview" className={styles.preview} />
+          )}
 
-        <label>Category:</label>
-        <input
-          type="text"
-          name="category"
-          value={productName.category}
-          onChange={handleChange}
-        />
-
-        <br /><br />
-
-        <button type="submit">Add Product</button>
-      </form>
+          <button type="submit">Add Product</button>
+        </form>
+      </div>
     </div>
   );
 }

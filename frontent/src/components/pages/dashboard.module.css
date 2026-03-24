@@ -1,0 +1,86 @@
+.container {
+  background: #f5f5f5;
+}
+
+/* SLIDER */
+.slider {
+  margin-bottom: 20px;
+}
+
+.sliderImg {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* TITLE */
+.title {
+  margin: 20px 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* CATEGORY */
+.categories {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.categories div {
+  padding: 10px 15px;
+  background: white;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.categories div:hover {
+  background: black;
+  color: white;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.card {
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* BUTTON */
+.btnBox {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btnBox button {
+  padding: 10px 20px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}

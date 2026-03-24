@@ -9,6 +9,7 @@ import About from './components/pages/About'
 
 import Auth from './components/pages/Auth'
 import Navbar from './components/navbar/Navbar'
+import Footer from './components/footer/Footer'
 import AddProduct from './components/pages/addproduct'
 import './App.css'
 function App() {
@@ -26,7 +27,7 @@ function App() {
           <Route path="/auth" element={<Auth />} />
           <Route path="/add-product" element={<AddProduct />} />
       </Routes>
-      
+      <Footer />
     </>
   )
 }

@@ -36,11 +36,48 @@ export const addToCartServices=async(userId,productId)=>{
 }
 
 
-export const getCartServices=async(userId)=>{
-    console.log("userId",userId);
-   const data=await Cart.findOne({userId}).populate("items.productId");
-   return data;
-}
+export const getCartServices = async (userId) => {
+  const cart = await Cart.findOne({ userId })
+    .populate("items.productId");
+
+  if (!cart) {
+    return {
+      items: [],
+      subtotal: 0,
+      gst: 0,
+      total: 0
+    };
+  }
+
+  let subtotal = 0;
+
+  cart.items.forEach((item) => {
+    const price = item.productId.price;
+    const qty = item.quantity;
+
+    subtotal += price * qty;
+  });
+
+
+  const gst = subtotal * 0.18;
+  const total = subtotal + gst;
+
+
+  cart.subtotal = subtotal;
+  cart.gst = gst;
+  cart.total = total;
+
+  await cart.save();   
+
+  return {
+    items: cart.items,
+    subtotal,
+    gst,
+    total
+  };
+};
+
+
 
 export const removeCartProdcutServices=async(userId,productId)=>{
     const cart= await Cart.findOne({userId});
