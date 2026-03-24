@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AddProduct() {
-
-  const [productName, setProductName] = useState({
+   const navigate = useNavigate();
+   const [productName, setProductName] = useState({
     productName: "",
     price: "",
     description: "",
@@ -32,8 +33,8 @@ function AddProduct() {
 
       const data = await res.json();
       console.log(data);
-
-      alert("Product Added Successfully!"); 
+      navigate("/products");
+      // alert("Product Added Successfully!"); 
 
     } catch (error) {
       console.log(error);

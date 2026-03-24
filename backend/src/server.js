@@ -8,7 +8,9 @@ import movieRouter from './modules/movie.routes.js'
 import productApi from './modules/product/product.routes.js';
 import productView from './modules/product/product.routes.js';
 import productDeleteRouter from "./modules/product/product.routes.js";
-import signupRouter from './modules/signup/signup.routes.js';
+import userApi from './modules/signup/signup.routes.js';
+import cartRouter from './modules/cart/cart.routes.js';
+
 
 
 app.use(express.json());
@@ -28,7 +30,14 @@ app.use("/api/getProduct", productView);
 app.use("/api/deleteProduct", productDeleteRouter);
 
 //signup routes
-app.use("/api/signup", signupRouter);
+app.use("/api/signup", userApi);
+
+//signin routes
+app.use("/api/signin", userApi);
+
+//cart routes
+app.use("/api/addToCart", cartRouter);
+app.use("/api", cartRouter);
 
 
 

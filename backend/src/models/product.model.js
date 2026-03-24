@@ -6,6 +6,10 @@ const  productSchema=new mongoose.Schema({
     description:String,
     category:String,
     // image:String
-},{strict:false})
+    image:{
+        type:String,
+        required:true
+    }
+},{strict:true});
 
 export default mongoose.model("Product",productSchema)

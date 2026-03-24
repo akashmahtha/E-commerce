@@ -1,48 +1,43 @@
-.navbar{
-    display:flex;
-    align-items:center;
-    padding:0 60px 0 30px;
-    height:70px;
-    background:#ffffff;
-    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #131921;
+  padding: 10px 20px;
 }
 
-.logo img{
-    width:90px;
-    height:70px;
-    object-fit:cover;
-    border-radius:50%;
+/* LOGO */
+.logo img {
+  width: 120px;
 }
 
-.links{
-    display:flex;
-    gap:35px;
+/* 🔥 SEARCH BAR */
+.searchBar {
+  display: flex;
+  width: 40%;
 }
 
-.link{
-    text-decoration:none;
-    color:#333;
-    font-size:17px;
-    font-weight:500;
-    position:relative;
-    transition:0.3s;
+.searchBar input {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  outline: none;
 }
 
-.link:hover{
-    color:#ff6a00;
+.searchBar button {
+  background: orange;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
 }
 
-.link::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:-5px;
-    width:0%;
-    height:2px;
-    background:#ff6a00;
-    transition:0.3s;
+/* LINKS */
+.links {
+  display: flex;
+  gap: 15px;
 }
 
-.link:hover::after{
-    width:100%;
+.link {
+  color: white;
+  text-decoration: none;
 }

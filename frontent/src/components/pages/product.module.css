@@ -1,0 +1,144 @@
+.container {
+  background: #f1f3f6;
+}
+
+/* 🔥 SLIDER */
+.slider {
+  height: 320px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* 🔥 LUXURY GRADIENT */
+  background: linear-gradient(
+    135deg,
+    #f8d7da,
+    #fbc2eb,
+    #a6c1ee
+  );
+
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* ✅ PERFECT BANNER FIX */
+.sliderImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* keep full perfume visible */
+  z-index: 2;
+}
+
+/* Hover effect */
+.slider:hover .sliderImg {
+  transform: scale(1.05);
+}
+
+/* Buttons */
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.prev { left: 15px; }
+.next { right: 15px; }
+
+/* TITLE */
+.title {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* GRID */
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.card {
+  position: relative;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* BADGE */
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: red;
+  color: white;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 5px;
+}
+
+/* IMAGE */
+.image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* NO IMAGE */
+.noImage {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, #222, #555);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+/* TEXT */
+.productName {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.rating {
+  color: #f59e0b;
+}
+
+.price {
+  color: green;
+  font-weight: bold;
+}
+
+.desc {
+  font-size: 13px;
+  color: #555;
+}
+
+/* BUTTON */
+.cartBtn {
+  margin-top: 10px;
+  width: 100%;
+  background: orange;
+  color: white;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 6px;
+}
