@@ -7,14 +7,19 @@ function Products() {
   const [userId, setUserId] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // 🔥 NEW STATES
+  const [sort, setSort] = useState("");
+  const [category, setCategory] = useState("");
+  const [wishlist, setWishlist] = useState([]);
+
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 🔍 Search Query
+  // 🔍 SEARCH QUERY
   const query = new URLSearchParams(location.search);
   const searchQuery = query.get("search") || "";
 
-  // 🔐 AUTH CHECK
+  // 🔐 CHECK LOGIN
   useEffect(() => {
     const id = localStorage.getItem("userId");
 
@@ -26,7 +31,7 @@ function Products() {
     }
   }, [navigate]);
 
-  // 📦 Fetch Products
+  // 📦 FETCH PRODUCTS
   const fetchProducts = async () => {
     try {
       const res = await fetch("http://localhost:5000/api/getProduct");
@@ -41,7 +46,7 @@ function Products() {
     fetchProducts();
   }, []);
 
-  // 🛒 Add To Cart
+  // 🛒 ADD TO CART
   const handleAddToCart = async (id, e) => {
     e.stopPropagation();
 
@@ -65,7 +70,7 @@ function Products() {
       if (data.success) {
         alert("Added to Cart ✅");
       } else {
-        alert(data.message || "Failed to add");
+        alert(data.message || "Product is added");
       }
     } catch (error) {
       console.error("AddToCart Error:", error);
@@ -73,24 +78,65 @@ function Products() {
     }
   };
 
-  // 🔍 FILTER PRODUCTS
-  const filteredProducts = products.filter((item) =>
-    item.productName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // ❤️ WISHLIST
+  const toggleWishlist = (id, e) => {
+    e.stopPropagation();
 
-  // ⏳ Loading UI
+    setWishlist((prev) =>
+      prev.includes(id)
+        ? prev.filter((item) => item !== id)
+        : [...prev, id]
+    );
+  };
+
+  // 🔥 FINAL FILTER + SORT (FIXED)
+  const finalProducts = products
+    .filter((item) =>
+      item.productName.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .filter((item) =>
+      category
+        ? item.category?.toLowerCase() === category.toLowerCase()
+        : true
+    )
+    .sort((a, b) => {
+      if (sort === "low") return Number(a.price) - Number(b.price);
+      if (sort === "high") return Number(b.price) - Number(a.price);
+      return 0;
+    });
+
+  // ⏳ LOADING
   if (loading) {
     return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
   }
 
   return (
     <div className={styles.container}>
+      
       <h1 className={styles.title}>Luxury Perfumes</h1>
+
+      {/* 🔥 FILTER BAR */}
+      <div className={styles.filterBar}>
+        
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+          <option value="">All Categories</option>
+          <option value="men">Men</option>
+          <option value="women">Women</option>
+          <option value="unisex">Unisex</option>
+        </select>
+
+        <select value={sort} onChange={(e) => setSort(e.target.value)}>
+          <option value="">Sort By</option>
+          <option value="low">Price Low → High</option>
+          <option value="high">Price High → Low</option>
+        </select>
+
+      </div>
 
       {/* 🧴 PRODUCTS */}
       <div className={styles.productGrid}>
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((item) => (
+        {finalProducts.length > 0 ? (
+          finalProducts.map((item) => (
             <div
               key={item._id}
               className={styles.card}
@@ -98,8 +144,16 @@ function Products() {
                 navigate("/product-details", { state: item })
               }
             >
-              
 
+              {/* ❤️ WISHLIST */}
+              <span
+                className={styles.wishlist}
+                onClick={(e) => toggleWishlist(item._id, e)}
+              >
+                {wishlist.includes(item._id) ? "❤️" : "🤍"}
+              </span>
+
+              {/* IMAGE */}
               {item.image ? (
                 <img
                   src={item.image}
@@ -107,9 +161,7 @@ function Products() {
                   className={styles.image}
                 />
               ) : (
-                <div className={styles.noImage}>
-                  <span>Perfume</span>
-                </div>
+                <div className={styles.noImage}>No Image</div>
               )}
 
               <h2 className={styles.productName}>
@@ -128,12 +180,14 @@ function Products() {
               >
                 Add To Cart
               </button>
+
             </div>
           ))
         ) : (
           <h2 className={styles.noData}>No products found 😢</h2>
         )}
       </div>
+
     </div>
   );
 }

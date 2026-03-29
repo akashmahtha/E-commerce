@@ -1,29 +1,39 @@
 import React from "react";
 import styles from "./footer.module.css";
+import logo from "../../assets/logo2.png";
 
 function Footer() {
   return (
     <footer className={styles.footer}>
+      
       <div className={styles.container}>
 
-        {/* BRAND */}
+        {/* 🔥 BRAND */}
         <div className={styles.section}>
-          <h2>PerfumeStore</h2>
-          <p>Luxury fragrances for men & women.</p>
+          <img src={logo} alt="AKM Perfume Store" className={styles.logo}/>
+          <p>Luxury fragrances for men & women. Create your signature scent.</p>
+
+          {/* 🔥 SOCIAL */}
+          <div className={styles.socials}>
+            <span>🌐</span>
+            <span>📘</span>
+            <span>📸</span>
+            <span>🐦</span>
+          </div>
         </div>
 
-        {/* LINKS */}
+        {/* 🔥 LINKS */}
         <div className={styles.section}>
           <h3>Quick Links</h3>
           <ul>
             <li>Home</li>
             <li>Products</li>
+            <li>Cart</li>
             <li>About</li>
-            <li>Contact</li>
           </ul>
         </div>
 
-        {/* CATEGORY */}
+        {/* 🔥 CATEGORY */}
         <div className={styles.section}>
           <h3>Categories</h3>
           <ul>
@@ -33,18 +43,24 @@ function Footer() {
           </ul>
         </div>
 
-        {/* CONTACT */}
+        {/* 🔥 NEWSLETTER */}
         <div className={styles.section}>
-          <h3>Contact</h3>
-          <p>Email: akm@perfumestore.com</p>
-          <p>Phone: +91 8797627574</p>
+          <h3>Newsletter</h3>
+          <p>Subscribe for latest offers</p>
+
+          <div className={styles.newsletter}>
+            <input type="email" placeholder="Enter your email" />
+            <button>Subscribe</button>
+          </div>
         </div>
 
       </div>
 
+      {/* 🔥 BOTTOM */}
       <div className={styles.bottom}>
-        © 2026 PerfumeStore. All rights reserved.
+        © 2026 AKM Perfume Store | All Rights Reserved
       </div>
+
     </footer>
   );
 }

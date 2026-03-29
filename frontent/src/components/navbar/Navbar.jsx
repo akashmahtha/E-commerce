@@ -7,7 +7,10 @@ function Navbar() {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
-  // 🔥 Handle Search
+  // ✅ DIRECT LOGIN CHECK (NO STATE ISSUE)
+  const isLoggedIn = !!localStorage.getItem("userId");
+
+  // 🔥 HANDLE SEARCH
   const handleSearch = (e) => {
     e.preventDefault();
 
@@ -17,24 +20,23 @@ function Navbar() {
     }
   };
 
-const handleLogout = () => {
-  localStorage.removeItem("user");
-  localStorage.removeItem("userId");   // ✅ important
+  // 🔥 LOGOUT
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("userId");
 
-  console.log("After logout userId:", localStorage.getItem("userId")); // should be null
-
-  navigate("/auth");
-};
+    navigate("/auth");
+  };
 
   return (
     <nav className={styles.navbar}>
-
+      
       {/* LOGO */}
       <div className={styles.logo}>
         <img src={logo} alt="E-commerce Logo" />
       </div>
 
-      {/* 🔥 SEARCH BAR */}
+      {/* SEARCH BAR */}
       <form className={styles.searchBar} onSubmit={handleSearch}>
         <input
           type="text"
@@ -49,14 +51,23 @@ const handleLogout = () => {
       <div className={styles.links}>
         <Link className={styles.link} to="/">Dashboard</Link>
         <Link className={styles.link} to="/products">Products</Link>
-        <Link className={styles.link} to="/card">Cart</Link>
+        <Link className={styles.link} to="/cart">Cart</Link>
         <Link className={styles.link} to="/about">About</Link>
-        <Link className={styles.link} to="/auth">Auth</Link>
 
-        <button className={styles.logout} onClick={handleLogout}>
-              Logout
-            </button>
-        
+        {/* ✅ SHOW AUTH ONLY WHEN LOGGED OUT */}
+        {!isLoggedIn && (
+          <Link className={styles.link} to="/auth">Auth</Link>
+        )}
+
+        {/* ✅ SHOW LOGOUT ONLY WHEN LOGGED IN */}
+        {isLoggedIn && (
+          <button
+            className={styles.logout}
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        )}
       </div>
 
     </nav>

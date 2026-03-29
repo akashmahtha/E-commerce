@@ -1,86 +1,327 @@
+/* 🔥 GLOBAL RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
+}
+
+/* 🔥 MAIN CONTAINER */
 .container {
-  background: #f5f5f5;
+  padding: 20px;
+  color: white;
+  background: url("https://images.unsplash.com/photo-1594035910387-fea47794261f") no-repeat center/cover;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
-/* SLIDER */
+.container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: -1;
+}
+
+/* 🔥 SLIDER */
 .slider {
-  margin-bottom: 20px;
+  height: 90vh;
+  margin-bottom: 50px;
 }
 
-.sliderImg {
-  width: 100%;
-  height: 300px;
+.slider img {
+  height: 90vh;
   object-fit: cover;
-  border-radius: 10px;
-  cursor: pointer;
 }
 
-/* TITLE */
-.title {
-  margin: 20px 0;
-  font-size: 22px;
-  font-weight: 600;
+/* 🔥 OVERLAY */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
 }
 
-/* CATEGORY */
-.categories {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.categories div {
-  padding: 10px 15px;
-  background: white;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.categories div:hover {
-  background: black;
+/* 🔥 SLIDER TEXT */
+.caption {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
   color: white;
 }
 
-/* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
+.caption h1 {
+  font-size: 60px;
+  font-weight: 700;
+  animation: fadeIn 1.2s ease-in-out;
 }
 
-/* CARD */
-.card {
-  background: white;
-  padding: 10px;
-  border-radius: 10px;
+.caption p {
+  font-size: 20px;
+  margin-top: 10px;
+  color: #d4af37;
+}
+
+/* 🔥 SALE SECTION */
+.saleSection {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 50px;
+}
+
+.saleCard {
+  flex: 1;
+  position: relative;
+  height: 180px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.saleCard:hover {
+  transform: scale(1.05);
+}
+
+.saleCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+}
+
+.saleCard div {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.saleCard h3 {
+  font-size: 22px;
+}
+
+.saleCard p {
+  font-size: 28px;
+  color: #d4af37;
+  font-weight: bold;
+}
+
+/* 🔥 SECTION TITLE */
+.sectionTitle {
   text-align: center;
-  transition: 0.3s;
+  margin: 60px 0 30px;
+}
+
+.sectionTitle span {
+  font-size: 18px;
+  color: transparent;
+  -webkit-text-stroke: 1px #d4af37;
+}
+
+.sectionTitle h2 {
+  font-size: 32px;
+  margin-top: 5px;
+  position: relative;
+  display: inline-block;
+}
+
+.sectionTitle h2::after {
+  content: "";
+  width: 0%;
+  height: 2px;
+  background: #d4af37;
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  transition: 0.4s;
+}
+
+.sectionTitle h2:hover::after {
+  width: 100%;
+}
+
+/* 🔥 FEATURE */
+.feature {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 50px;
+}
+
+.feature img {
+  width: 100%;
+  height: 300px;
+  border-radius: 20px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.feature:hover img {
+  transform: scale(1.05);
+}
+
+.featureBox {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 25px;
+  border-radius: 20px;
+}
+
+.featureBox:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.featureBox button {
+  margin-top: 10px;
+  padding: 8px 15px;
+  border-radius: 6px;
+  border: 1px solid #d4af37;
+  background: transparent;
+  color: #d4af37;
   cursor: pointer;
 }
 
-.card:hover {
-  transform: translateY(-5px);
+.featureBox button:hover {
+  background: #d4af37;
+  color: black;
 }
 
-.card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 8px;
+/* 🔥 PRODUCTS */
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
 }
 
-/* BUTTON */
-.btnBox {
+.productCard {
+  position: relative;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 20px;
   text-align: center;
+  cursor: pointer;
+}
+
+.productCard:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+.productCard img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: transform 0.5s ease;
+}
+
+.productCard:hover img {
+  transform: scale(1.1);
+}
+
+.productCard h3 {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.productCard p {
+  color: #d4af37;
+  font-weight: bold;
+}
+
+.productCard button {
+  margin-top: 10px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #d4af37;
+  background: transparent;
+  color: #d4af37;
+  cursor: pointer;
+}
+
+.productCard button:hover {
+  background: #d4af37;
+  color: black;
+}
+
+/* 🔥 TESTIMONIAL */
+.testimonial {
+  margin-top: 80px;
+  padding: 40px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.06);
+}
+
+.testimonial:hover {
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+
+.testBox {
   margin-top: 20px;
 }
 
-.btnBox button {
-  padding: 10px 20px;
-  background: black;
-  color: white;
-  border: none;
-  border-radius: 8px;
+.testBox p {
+  margin: 10px 0;
+}
+
+/* 🔥 BLOG */
+.blogGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 20px;
+}
+
+.blogCard {
+  background: rgba(255,255,255,0.06);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.blogCard:hover {
+  transform: translateY(-10px);
+}
+
+.blogCard img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.blogCard:hover img {
+  transform: scale(1.1);
+}
+
+.blogCard h4 {
+  padding: 10px;
+}
+
+.blogCard button {
+  margin: 10px;
+  padding: 8px;
+  border: 1px solid #d4af37;
+  background: transparent;
+  color: #d4af37;
+  border-radius: 20px;
   cursor: pointer;
+}
+
+.blogCard button:hover {
+  background: #d4af37;
+  color: black;
+}
+
+/* 🔥 ANIMATION */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Dashboard from './components/pages/Dashboard'
 import Products from './components/pages/Products'
-import Card from './components/pages/Card'
+import Cart from './components/pages/Cart'
 import About from './components/pages/About'
 
 import Auth from './components/pages/Auth'
@@ -22,7 +22,7 @@ function App() {
       <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/card" element={<Card />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/about" element={<About />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/add-product" element={<AddProduct />} />

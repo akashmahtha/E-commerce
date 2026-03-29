@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./card.module.css";
+import styles from "./cart.module.css";
 
-function Card() {
+// ✅ IMPORT RAZORPAY BUTTON
+import PaymentButton from "../../PaymentButton";
+
+function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const [subtotal, setSubtotal] = useState(0);
   const [gst, setGst] = useState(0);
@@ -11,7 +14,7 @@ function Card() {
 
   const navigate = useNavigate();
 
-  // 🔥 FETCH CART (GLOBAL FUNCTION)
+  // 🔥 FETCH CART
   const fetchCart = async () => {
     const userId = localStorage.getItem("userId");
 
@@ -25,21 +28,19 @@ function Card() {
       });
 
       const data = await res.json();
-      console.log("Cart Data:", data);
 
       setCartItems(data?.items || []);
       setSubtotal(data?.subtotal || 0);
       setGst(data?.gst || 0);
       setTotal(data?.total || 0);
-
-      setLoading(false);
     } catch (error) {
-      console.error(error);
+      console.error("Fetch Cart Error:", error);
+    } finally {
       setLoading(false);
     }
   };
 
-  // 🔐 AUTH + FETCH
+  // 🔐 AUTH CHECK
   useEffect(() => {
     const userId = localStorage.getItem("userId");
 
@@ -69,17 +70,32 @@ function Card() {
         }
       );
 
-      const data = await res.json();
-      console.log("Remove Response:", data);
-
-      if (res.ok) {
-        fetchCart(); // 🔄 refresh cart
-      } else {
-        alert(data.message || "Failed to remove item");
-      }
+      if (res.ok) fetchCart();
+      else alert("Failed to remove item");
     } catch (error) {
       console.error("Remove Error:", error);
-      alert("Something went wrong!");
+    }
+  };
+
+  // ➕➖ UPDATE QUANTITY
+  const updateQuantity = async (productId, type) => {
+    const userId = localStorage.getItem("userId");
+
+    try {
+      const res = await fetch(
+        "http://localhost:5000/api/updateCartQuantity",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ userId, productId, type })
+        }
+      );
+
+      if (res.ok) fetchCart();
+    } catch (error) {
+      console.error("Update Quantity Error:", error);
     }
   };
 
@@ -87,7 +103,7 @@ function Card() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>YOUR CART</h1>
+      <h1 className={styles.title}>🛒 Your Cart</h1>
 
       <div className={styles.wrapper}>
 
@@ -97,28 +113,41 @@ function Card() {
             <h2>No items in cart</h2>
           ) : (
             cartItems.map((item) => (
-              <div key={item.productId._id} className={styles.card}>
+              <div key={item?.productId?._id} className={styles.card}>
                 
                 {/* IMAGE */}
                 <img
-                  src={item.productId?.image}
-                  alt=""
+                  src={item?.productId?.image}
+                  alt={item?.productId?.productName}
                   className={styles.image}
                 />
 
                 {/* DETAILS */}
                 <div className={styles.details}>
-                  <h3>{item.productId?.productName}</h3>
-
+                  <h3>{item?.productId?.productName}</h3>
                   <p className={styles.price}>
-                    ₹{item.productId?.price}
+                    ₹{item?.productId?.price}
                   </p>
 
                   {/* QUANTITY */}
                   <div className={styles.qty}>
-                    <button>-</button>
+                    <button
+                      onClick={() =>
+                        updateQuantity(item.productId._id, "dec")
+                      }
+                    >
+                      -
+                    </button>
+
                     <span>{item.quantity}</span>
-                    <button>+</button>
+
+                    <button
+                      onClick={() =>
+                        updateQuantity(item.productId._id, "inc")
+                      }
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
 
@@ -160,12 +189,23 @@ function Card() {
             <span>₹{total.toFixed(2)}</span>
           </div>
 
-          <button
-            className={styles.checkout}
-            onClick={() => alert("Proceed to checkout 🚀")}
-          >
-            Go to Checkout →
-          </button>
+          {/* ✅ RAZORPAY PAYMENT BUTTON */}
+          {cartItems.length > 0 ? (
+            <PaymentButton amount={total} />
+          ) : (
+            <button
+              disabled
+              style={{
+                width: "100%",
+                padding: "12px",
+                marginTop: "15px",
+                background: "#ccc",
+                border: "none"
+              }}
+            >
+              Cart is Empty
+            </button>
+          )}
         </div>
 
       </div>
@@ -173,4 +213,4 @@ function Card() {
   );
 }
 
-export default Card;
+export default Cart;

@@ -10,7 +10,7 @@ import productView from './modules/product/product.routes.js';
 import productDeleteRouter from "./modules/product/product.routes.js";
 import userApi from './modules/signup/signup.routes.js';
 import cartRouter from './modules/cart/cart.routes.js';
-
+import paymentRoutes from "./modules/payment/payment.routes.js"
 
 
 app.use(express.json());
@@ -39,7 +39,7 @@ app.use("/api/signin", userApi);
 app.use("/api/addToCart", cartRouter);
 app.use("/api", cartRouter);
 
-
+app.use("/api/payment", paymentRoutes);
 
 
 
